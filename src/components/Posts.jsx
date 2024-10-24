@@ -2,25 +2,27 @@ import { useState } from "react";
 import { data } from "../data/data";
 
 function Posts() {
-  const[contentData ,setContentData] = useState(data)
+  const [contentData, setContentData] = useState(data);
 
-  function add(id){
-    const newData = [...contentData]
-    newData[id].likes = newData[id].likes +1
-    setContentData(newData)
+  function add(id) {
+    const newData = [...contentData];
+    newData[id].likes = newData[id].likes + 1;
+    setContentData(newData);
   }
 
-  function deleteC(id){
-    const newData = [...contentData]
-    newData[id].likes = newData[id].likes - 1
-    setContentData(newData)
+  function deleteC(id) {
+    const newData = [...contentData];
+    if (newData[id].likes > 0) {
+      newData[id].likes = newData[id].likes - 1;
+      setContentData(newData);
+    }
   }
 
   return (
     <div className="app-wrapper">
       <h1 className="app-title">Posts</h1>
       <div className="post-list">
-        {data.map((post,index) => (
+        {data.map((post, index) => (
           <div className="post-item" key={post.id}>
             <div className="post-header">
               <h2>{post.title}</h2>
@@ -29,12 +31,14 @@ function Posts() {
                 <span className="post-likes">{post.likes}</span>
               </div>
             </div>
-            <p className="post-content">
-              {post.content}
-            </p>
+            <p className="post-content">{post.content}</p>
             <div className="post-actions">
-              <button className="like-button" onClick={() => add(index)}>Like</button>
-              <button className="dislike-button" onClick={() => deleteC(index)}>Dislike</button>
+              <button className="like-button" onClick={() => add(index)}>
+                Like
+              </button>
+              <button className="dislike-button" onClick={() => deleteC(index)}>
+                Dislike
+              </button>
             </div>
           </div>
         ))}
@@ -44,4 +48,3 @@ function Posts() {
 }
 
 export default Posts;
-
