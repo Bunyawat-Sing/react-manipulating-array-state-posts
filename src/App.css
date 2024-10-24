@@ -66,6 +66,10 @@ body {
   margin-right: 30px;
 }
 
+.post-actions {
+  display: flex;
+}
+
 button {
   cursor: pointer;
   background-color: var(--secondary-color);

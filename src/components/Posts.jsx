@@ -1,9 +1,53 @@
+import { useState } from "react";
+import { blogPost } from "../data/Post";
+
 function Posts() {
+  const [post, setPost] = useState(blogPost);
+
+  const likePost = (indexPost) => {
+    const newPost = [...post];
+    newPost[indexPost].likes = newPost[indexPost].likes + 1;
+    setPost(newPost);
+  };
+
+  const dislikePost = (indexPost) => {
+    const newPost = [...post];
+    if (newPost[indexPost].likes > 0) {
+      newPost[indexPost].likes = newPost[indexPost].likes - 1;
+    }
+    setPost(newPost);
+  };
+
   return (
-    <div class="app-wrapper">
-      <h1 class="app-title">Posts</h1>
-      <div class="post-list">
-        <div class="post-item">
+    <div className="app-wrapper">
+      <h1 className="app-title">Posts</h1>
+      <div className="post-list">
+        {post.map((item, index) => {
+          return (
+            <div className="post-item">
+              <div className="post-header">
+                <h2>{item.title}</h2>
+                <div className="post-social-media-stats">
+                  <span className="stats-topic">Likes: </span>
+                  <span className="post-likes">{item.likes}</span>
+                </div>
+              </div>
+              <p className="post-content">{item.content}</p>
+              <div className="post-actions">
+                <button onClick={() => likePost(index)} className="like-button">
+                  Like
+                </button>
+                <button
+                  onClick={() => dislikePost(index)}
+                  className="dislike-button"
+                >
+                  Dislike
+                </button>
+              </div>
+            </div>
+          );
+        })}
+        {/*<div class="post-item">
           <div class="post-header">
             <h2>Post Title #1</h2>
             <div class="post-social-media-stats">
@@ -22,7 +66,7 @@ function Posts() {
             <button class="like-button">Like</button>
             <button class="dislike-button">Dislike</button>
           </div>
-        </div>
+        </div>*/}
       </div>
     </div>
   );
